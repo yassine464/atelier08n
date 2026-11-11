@@ -1,0 +1,32 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header">Liste des accessoires</div>
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th><th>Nom</th><th>Prix</th><th>Date création</th><th>Marque</th>
+            @if (authService.isAdmin()) {
+              <th>Supprimer</th><th>Modifier</th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          @for (accessoire of accessoires; track accessoire.idAccessoire) {
+            <tr>
+              <td>{{ accessoire.idAccessoire }}</td>
+              <td>{{ accessoire.nomAccessoire }}</td>
+              <td>{{ accessoire.prixAccessoire }}</td>
+              <td>{{ accessoire.dateCreation | date: 'dd/MM/yyyy' }}</td>
+              <td>{{ accessoire.marque.nomMarque }}</td>
+              @if (authService.isAdmin()) {
+                <td><a class="btn btn-danger" (click)="supprimerAccessoire(accessoire)">Supprimer</a></td>
+                <td><a class="btn btn-success" [routerLink]="['/updateAccessoire', accessoire.idAccessoire]">Modifier</a></td>
+              }
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
